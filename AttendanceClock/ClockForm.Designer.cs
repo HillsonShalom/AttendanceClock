@@ -37,6 +37,7 @@
             exitButton = new Button();
             lastEntry = new Label();
             lastExit = new Label();
+            moveToHistory = new LinkLabel();
             SuspendLayout();
             // 
             // label1
@@ -102,6 +103,7 @@
             entryButton.TabIndex = 16;
             entryButton.Text = "כניסה";
             entryButton.UseVisualStyleBackColor = false;
+            entryButton.Click += entryButton_Click;
             // 
             // exitButton
             // 
@@ -114,13 +116,14 @@
             exitButton.TabIndex = 17;
             exitButton.Text = "יציאה";
             exitButton.UseVisualStyleBackColor = false;
+            exitButton.Click += exitButton_Click;
             // 
             // lastEntry
             // 
             lastEntry.AutoSize = true;
             lastEntry.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lastEntry.ForeColor = Color.Green;
-            lastEntry.Location = new Point(151, 223);
+            lastEntry.Location = new Point(53, 225);
             lastEntry.Name = "lastEntry";
             lastEntry.Size = new Size(210, 46);
             lastEntry.TabIndex = 18;
@@ -131,11 +134,23 @@
             lastExit.AutoSize = true;
             lastExit.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lastExit.ForeColor = Color.Purple;
-            lastExit.Location = new Point(151, 352);
+            lastExit.Location = new Point(53, 350);
             lastExit.Name = "lastExit";
             lastExit.Size = new Size(210, 46);
             lastExit.TabIndex = 19;
             lastExit.Text = "11/07/2014";
+            // 
+            // moveToHistory
+            // 
+            moveToHistory.AutoSize = true;
+            moveToHistory.Font = new Font("Segoe UI", 13F);
+            moveToHistory.Location = new Point(356, 33);
+            moveToHistory.Name = "moveToHistory";
+            moveToHistory.Size = new Size(103, 30);
+            moveToHistory.TabIndex = 20;
+            moveToHistory.TabStop = true;
+            moveToHistory.Text = "היסטוריה";
+            moveToHistory.LinkClicked += moveToHistory_LinkClicked;
             // 
             // ClockForm
             // 
@@ -143,6 +158,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.InactiveCaption;
             ClientSize = new Size(482, 653);
+            Controls.Add(moveToHistory);
             Controls.Add(lastExit);
             Controls.Add(lastEntry);
             Controls.Add(exitButton);
@@ -172,5 +188,6 @@
         private Button exitButton;
         private Label lastEntry;
         private Label lastExit;
+        private LinkLabel moveToHistory;
     }
 }

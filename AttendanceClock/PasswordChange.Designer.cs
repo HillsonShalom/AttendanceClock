@@ -38,6 +38,7 @@
             label4 = new Label();
             saveAndMove = new Button();
             backLink = new LinkLabel();
+            newEmp = new LinkLabel();
             SuspendLayout();
             // 
             // passwordBox
@@ -127,6 +128,7 @@
             saveAndMove.TabIndex = 13;
             saveAndMove.Text = "שנה";
             saveAndMove.UseVisualStyleBackColor = false;
+            saveAndMove.Click += saveAndMove_Click;
             // 
             // backLink
             // 
@@ -140,12 +142,25 @@
             backLink.Text = "ביטול";
             backLink.LinkClicked += backLink_LinkClicked;
             // 
+            // newEmp
+            // 
+            newEmp.AutoSize = true;
+            newEmp.Font = new Font("Segoe UI", 14F);
+            newEmp.Location = new Point(257, 597);
+            newEmp.Name = "newEmp";
+            newEmp.Size = new Size(115, 32);
+            newEmp.TabIndex = 15;
+            newEmp.TabStop = true;
+            newEmp.Text = "עובד חדש";
+            newEmp.LinkClicked += newEmp_LinkClicked;
+            // 
             // PasswordChange
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.InactiveCaption;
             ClientSize = new Size(482, 653);
+            Controls.Add(newEmp);
             Controls.Add(backLink);
             Controls.Add(saveAndMove);
             Controls.Add(label4);
@@ -177,5 +192,6 @@
         private Label label4;
         private Button saveAndMove;
         private LinkLabel backLink;
+        private LinkLabel newEmp;
     }
 }

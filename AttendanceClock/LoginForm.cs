@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AttendanceClock.service;
 
 namespace AttendanceClock
 {
@@ -26,9 +27,30 @@ namespace AttendanceClock
             InitializeComponent();
         }
 
+        /// <summary>
+        /// First of all the function checks if the fields are not empty
+        /// then, it send a query to recieve the data
+        /// if recieved, it allowes the used move 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void moveToClock_Click(object sender, EventArgs e)
         {
-            ClockForm cf = new ClockForm(idBox.Text);
+            if (fieldsFull())
+            {
+                MessageBox.Show("השלם את כל הפרטים", "שגיאה!");
+                return;
+            }
+            SQLservice sqlc = new SQLservice($"SELECT E.EmployeeNat, MAX(L.EntryTime) AS LastEntry, MAX(L.ExitTime) AS LastExit FROM Employees E JOIN Passwords P ON E.ID = P.EmployeeID JOIN EmployeeAttendance L ON E.ID = L.EmployeeCode WHERE P.EmployeePassword = HASHBYTES('SHA2_256', '{passwordBox.Text}') and E.EmployeeNat = '{idBox.Text}' GROUP BY E.EmployeeNat;", "get_last_dates");
+            string table = sqlc.res;
+            DateTime entry = sqlc.lastEntry;
+            DateTime exit = sqlc.lastExit;
+            if (table == null)
+            {
+                MessageBox.Show("סיסמה שגויה!", "שגיאה!");
+                return;
+            }
+            ClockForm cf = new ClockForm(idBox.Text, entry, exit);
             Thread moveToClock = new Thread(() =>
             {
                 Application.Run(cf);
@@ -68,5 +90,11 @@ namespace AttendanceClock
                 idInvalid.Visible = false;
             }
         }
+
+        private bool fieldsFull()
+        {
+            return (idBox.Text == "" || idInvalid.Visible == true || passwordBox.Text == "");
+        }
+        
     }
 }
